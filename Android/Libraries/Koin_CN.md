@@ -102,14 +102,151 @@ fun main() {
 
 GitHub地址 https://github.com/InsertKoinIO/koin
 
-Gradle设置
+### Gradle设置
 
 ```kts
 mavenCentral()
 ```
 
 ```kts
- implementation("io.insert-koin:koin-android:3.4.3")
- implementation("io.insert-koin:koin-androidx-compose:3.4.6")
- implementation("io.insert-koin:koin-androidx-compose-navigation:3.4.6")
+implementation("io.insert-koin:koin-android:3.4.3")
+implementation("io.insert-koin:koin-androidx-compose:3.4.6")
+implementation("io.insert-koin:koin-androidx-compose-navigation:3.4.6")
+
+testimplementation("io.insert-koin:koin-test:3.4.3")
 ```
+### Koin的使用
+
+在Application中设置koin
+
+```kt
+class AppApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger()
+            androidContext(this@AppApplication)
+            modules(appModule)
+        }
+    }
+}
+```
+
+使用Koin DSL创建依赖
+
+```kt
+常规DSL
+factory {} // 每次都 new
+
+scope {} // 
+
+single {} // 单例
+
+viewModel {} // 创建Android ViewModel
+
+构造函数DSL
+factoryOf
+
+scopedOf
+
+singleOf
+
+viewModelOf
+```
+
+示例
+```kt
+val appInfoDataModule = module {
+
+    // 包含前置依赖项模块
+    includes(dispatcherModule, scopeModule, databaseModule)
+
+    // 使用常规DSL定义依赖
+    // 当要使用限定符（qualifier）获取依赖时，只能使用这种方式创建依赖
+    factory<AppInfoSource> {
+        DefaultAppInfoSource(
+            get(),
+            get(),
+            get(qualifier = qualifier(DispatcherQualifier.IO)),
+        )
+    }
+
+    // 使用构造函数DSL定义依赖
+    // 能使用这个就使用这个
+    factoryOf(::DefaultAppInfoRepository) {
+        // 绑定类型
+        bind<AppInfoRepository>()
+    }
+}
+```
+
+使用限定符创建相同类型的依赖
+
+```kt
+// 限定符可以是 String 或 enum 
+enum class DispatcherQualifier {
+    IO, DEFAULT
+}
+
+val dispatcherModule = module {
+    single<CoroutineDispatcher>(qualifier(DispatcherQualifier.IO)) { Dispatchers.IO }
+    single<CoroutineDispatcher>(qualifier(DispatcherQualifier.DEFAULT)) { Dispatchers.Default }
+}
+
+// 外部通过限定符获取依赖项示例
+get(qualifier = qualifier(DispatcherQualifier.IO))
+```
+
+创建ViewModel
+
+```kt
+val appInfoUiModule = module {
+    includes(appInfoDataModule)
+
+    viewModelOf(::AppInfoViewModel)
+}
+```
+
+在Activity、Fragment内注入ViewModel
+
+```kt
+by viewModel() // 延迟获取
+
+getViewModel() // 立马获取
+
+// Fragment 获取 Activity ViewModel
+by activityViewModel() // 延迟获取
+
+getActivityViewModel() // 立马获取
+
+// 获取某个导航图生命周期内的ViewModel，需提供导航图id
+val mainViewModel: NavViewModel by koinNavGraphViewModel(R.id.my_graph)
+```
+
+在Compose内注入ViewModel
+
+```kt
+// 未使用 Jetpack Navigation
+val viewModel = koinViewModel<AppInfoViewModel>()
+
+// 使用了 Jetpack Navigation
+val viewModel = koinNavViewModel<AppInfoViewModel>()
+```
+
+### 检查依赖注入的正确性
+
+导入koin test 包，然后在test目录下新建单元测试，可以检查每个 Module 的依赖的正确性，也可建立建立一个总的 Module 检查整个软件的依赖注入正确性（此功能目前为实验性功能，不稳定）。
+
+```kt
+class DiTest {
+
+    @Test
+    fun diTest() {
+        appModule.verify(
+            extraTypes = listOf(Application::class),
+        )
+    }
+}
+```
+
