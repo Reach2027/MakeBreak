@@ -49,7 +49,7 @@ fun main() {
 }
 ```
 
-有意义的依赖注入
+让依赖注入更有意义
 
 ```kt
 interface Engine {
@@ -89,14 +89,22 @@ fun main() {
 * 易于重构
 * 提升类的可测试性
 
+结合上面的代码示例来看，从常规写法到依赖注入在到依赖注入+抽象，原本的出发点是降低类之间的耦合度，但是这样一来类的可复用性、可测试性、可重构、可维护性都得到提升了。这说明衡量代码质量的指标低耦合、高内聚、可测试性、可维护性、可读性等这些指标都是互相关联的，其中一个指标好的话，其他的也就不会差。
+
+在代码质量指标中，可测试性是最好去检查和衡量的，要判断代码的可测试性，去写这段代码的单元测试就行了。如果单元测试不能很容易的写出或者不能有效的测试代码，那么这段代码的可测试性就不高，就应该改进这段代码了。
+
+我认为编写单元测试是一种有效检查代码并提升代码质量的手段。编写完代码后，编写单元测试就像学生时期做完数学题后在重新推导一次来检查结果是否正确一样。一组合格的单元测试写出来就表明这段代码的逻辑清晰、低耦合、健壮性好，Review代码时也可通过查看其单元测试来了解这段代码逻辑及判断这段代码的质量。当每个方法单元测试都通过都没问题，把它们组合起来也就不会有问题。
+
+综上所诉，使用依赖注入+抽象可有效提升代码可测试性，利用其带来的可测试性提升，编写单元测试，可有效提升代码质量，我觉得有必要在架构规范中引入依赖注入。
+
 ## Android 常见自动依赖框架
 
 |       | Hilt | Koin |
 | :---: | :---: | :---: |
-| 静态依赖注入 | 是 | 是 |
 | 编写语言 | Java | Kotlin |
 | 依赖注入方式 | 注解 | 支持 DSL 和 注解 |
-| 优点 | 可直接在Android studio内查看依赖树 | 支持KMP，使用比hilt简单，可不使用注解避免增加编译时间 |
+| 依赖注入检查 | 编译时检查 | 使用DSL时，需通过本地单元测试检查 <br> 使用注解时编译时检查 |
+| 优点 | 可直接在Android studio内查看依赖树 | 1、支持KMP、Compose MultiPlatform <br> 2、使用比hilt简单 <br> |
 
 ## 自动依赖注入框架Koin
 
@@ -115,9 +123,10 @@ implementation("io.insert-koin:koin-androidx-compose-navigation:3.4.6")
 
 testimplementation("io.insert-koin:koin-test:3.4.3")
 ```
+
 ### Koin的使用
 
-在Application中设置koin
+首先得在Application中设置koin
 
 ```kt
 class AppApplication : Application() {
@@ -139,7 +148,7 @@ class AppApplication : Application() {
 常规DSL
 factory {} // 每次都 new
 
-scope {} // 
+scoped {} // 支持在Activity、Fragment、Activity ViewModel内保持同一个实例
 
 single {} // 单例
 
@@ -155,20 +164,27 @@ singleOf
 viewModelOf
 ```
 
+Android Context 注入
+
+```kt
+androidApplication() // Application
+```
+
 示例
+
 ```kt
 val appInfoDataModule = module {
 
-    // 包含前置依赖项模块
+    // 包含依赖项模块
     includes(dispatcherModule, scopeModule, databaseModule)
 
     // 使用常规DSL定义依赖
     // 当要使用限定符（qualifier）获取依赖时，只能使用这种方式创建依赖
     factory<AppInfoSource> {
         DefaultAppInfoSource(
+            androidApplication(),
             get(),
-            get(),
-            get(qualifier = qualifier(DispatcherQualifier.IO)),
+            get(qualifier = DispatcherQualifier.IO.qualifier),
         )
     }
 
@@ -178,6 +194,27 @@ val appInfoDataModule = module {
         // 绑定类型
         bind<AppInfoRepository>()
     }
+}
+```
+
+Koin Scope
+
+```kt
+
+activityScope() // Activity 使用，Activity 的生命周期
+
+activityRetainedScope() // Activity 使用，ViewModel 的生命周期
+
+fragmentScope() // Fragment 内使用，Fragment 的生命周期
+
+// Activity 或 Fragment 继承 AndroidScopeComponent 接口
+class MainActivity : ComponentActivity(), AndroidScopeComponent {
+
+    override val scope: Scope by activityScope()
+}
+
+scope<MainActivity> {
+    scopedOf(::ClassA)
 }
 ```
 
@@ -211,12 +248,12 @@ val appInfoUiModule = module {
 在Activity、Fragment内注入ViewModel
 
 ```kt
-by viewModel() // 延迟获取
+by viewModel() // 懒加载
 
 getViewModel() // 立马获取
 
 // Fragment 获取 Activity ViewModel
-by activityViewModel() // 延迟获取
+by activityViewModel() // 懒加载
 
 getActivityViewModel() // 立马获取
 
@@ -236,7 +273,7 @@ val viewModel = koinNavViewModel<AppInfoViewModel>()
 
 ### 检查依赖注入的正确性
 
-导入koin test 包，然后在test目录下新建单元测试，可以检查每个 Module 的依赖的正确性，也可建立建立一个总的 Module 检查整个软件的依赖注入正确性（此功能目前为实验性功能，不稳定）。
+在模块build.gradle内导入koin test 依赖，然后在test目录下新建单元测试，可以检查每个 Module 的依赖的正确性，也可建立一个总的 Module 检查整个软件的依赖注入正确性（此功能目前为实验性功能，不稳定）。
 
 ```kt
 class DiTest {
@@ -244,7 +281,7 @@ class DiTest {
     @Test
     fun diTest() {
         appModule.verify(
-            extraTypes = listOf(Application::class),
+            extraTypes = listOf(Application::class, SavedStateHandle::class),
         )
     }
 }
@@ -283,7 +320,7 @@ android{
 }
 ```
 
-在TestApplication中替换依赖
+在TestApplication中替换依赖（不推荐）
 
 ```kt
 class TestApplication : Application() {
@@ -296,7 +333,7 @@ class TestApplication : Application() {
 }
 ```
 
-使用test rule 替换依赖
+使用test rule 替换依赖（推荐）
 
 ```kt
 class KoinTestRule(
