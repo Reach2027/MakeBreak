@@ -250,3 +250,75 @@ class DiTest {
 }
 ```
 
+### 使用 Koin 编写 AndroidTest
+
+AndroidTest 是从 Application 开始的，要重写其中的依赖关系，得先从替换 Application 开始。
+
+```kt
+class TestApplication : Application()
+
+class InstrumentationTestRunner : AndroidJUnitRunner() {
+    override fun newApplication(
+        classLoader: ClassLoader?,
+        className: String?,
+        context: Context?
+    ): Application {
+        return super.newApplication(classLoader, TestApplication::class.java.name, context)
+    }
+}
+
+android{
+    defaultConfig {
+        applicationId = "com.example.kotlinexample"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "0.0.1-alpha"
+
+        testInstrumentationRunner = "com.example.kotlinexample.InstrumentationTestRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+}
+```
+
+在TestApplication中替换依赖
+
+```kt
+class TestApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            modules(productionModule, instrumentedTestModule)
+        }
+    }
+}
+```
+
+使用test rule 替换依赖
+
+```kt
+class KoinTestRule(
+    private val modules: List<Module>
+) : TestWatcher() {
+
+    override fun starting(description: Description) {
+        startKoin {
+            androidLogger()
+            androidContext(InstrumentationRegistry.getInstrumentation().targetContext.applicationContext)
+            modules(modules)
+        }
+    }
+
+    override fun finished(description: Description) {
+        stopKoin()
+    }
+}
+
+// 使用rule替换依赖
+@get:Rule
+val koinTestRule = KoinTestRule(
+    modules = listOf(fakeAppInfoUiModule)
+)
+```
