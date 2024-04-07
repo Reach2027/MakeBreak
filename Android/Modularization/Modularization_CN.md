@@ -24,6 +24,6 @@
 
 ## 模块化方案
 
-![Modularization](/Android/Modularization/assest/modularization.drawio.png)
+![Modularization](/Android/Modularization/assets/modularization.drawio.png)
 
 ## 模块化设计原则

@@ -26,17 +26,17 @@
 
 使用依赖注入处理类之间的依赖关系
 
-![UDF](/Android/Architecture/assest/mad-arch-ui-udf.png)
+![UDF](/Android/Architecture/assets/mad-arch-ui-udf.png)
 
 ## 现代应用架构
 
 现代应用架构最少有两层，界面层及数据层。
 
-![ArchitectureOverview](/Android/Architecture/assest/mad-arch-overview.png)
+![ArchitectureOverview](/Android/Architecture/assets/mad-arch-overview.png)
 
 ### 界面层（UI layer）
 
-![ArchitectureUI](/Android/Architecture/assest/mad-arch-overview-ui.png)
+![ArchitectureUI](/Android/Architecture/assets/mad-arch-overview-ui.png)
 
 ### 域层（Domain layer）
 
@@ -44,11 +44,11 @@
 
 为了保持域层用例类的简单和轻量级，**每个用例类应只负责一个功能，而且不应包含可变数据**。
 
-![ArchitectureDomain](/Android/Architecture/assest/mad-arch-overview-domain.png)
+![ArchitectureDomain](/Android/Architecture/assets/mad-arch-overview-domain.png)
 
 ### 数据层（Data layer）
 
-![ArchitectureData](/Android/Architecture/assest/mad-arch-overview-data.png)
+![ArchitectureData](/Android/Architecture/assets/mad-arch-overview-data.png)
 
 ## 最佳实践
 
