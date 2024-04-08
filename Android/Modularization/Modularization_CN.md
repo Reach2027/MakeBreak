@@ -11,7 +11,7 @@
 * 提升代码的可扩展性（模块化后模块间耦合度低）
 * 提升构建性能（好的模块化可充分利用Gradle的增量构建、构建缓存、并行构建等能力）
 * 更方便的控制代码的可见性
-* 更方便的进行代码的封装
+* 更方便的进行代码封装
 * 更方便的项目管理（一个模块指定一个负责人）
 
 ## 常见陷阱
@@ -24,6 +24,57 @@
 
 ## 模块化方案
 
+按照功能来划分模块
+
+```kt
+app
+⬇️
+feature
+```
+
+关注点分离，分层架构，数据层复用
+
+```kt
+app
+⬇️
+feature
+⬇️
+feature-data
+```
+
+业务通用逻辑下沉
+
+```kt
+app
+⬇️
+feature
+⬇️
+feature-data
+⬇️
+core
+```
+
+业务无关通用逻辑再下沉
+
+```kt
+app
+⬇️
+feature
+⬇️
+feature-data
+⬇️
+core
+⬇️
+base
+```
+
+最终方案
 ![Modularization](/Android/Modularization/assets/modularization.drawio.png)
 
 ## 模块化设计原则
+
+### 模块内高内聚，模块间低耦合
+
+### 对外尽可能少暴露，对外尽量暴露接口，使用依赖注入暴露接口，对外不暴露接口实现类
+
+### 尽量是与 Android 无关的 Java 或 Kotlin 模块
