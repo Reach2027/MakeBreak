@@ -44,6 +44,8 @@
 
 #### 测试
 
+##### TODO 待补充
+
 ### 现代 Android 开发库
 
 #### Jetpack
@@ -57,6 +59,7 @@
 
 #### Kotlin 官方库
 
+* 协程 kotlinx.coroutines
 * 序列化框架 kotlinx.serialization
 * 网络请求框架 Ktor
 
