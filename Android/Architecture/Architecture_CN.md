@@ -22,11 +22,11 @@
 
 状态只朝一个方向流动，修改数据的事件向相反方向流动。
 
+![UDF](/Android/Architecture/assets/mad-arch-ui-udf.png)
+
 ### 依赖注入
 
 使用依赖注入处理类之间的依赖关系
-
-![UDF](/Android/Architecture/assets/mad-arch-ui-udf.png)
 
 ## 现代应用架构
 
