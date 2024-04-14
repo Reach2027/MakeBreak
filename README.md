@@ -4,6 +4,8 @@
 
 ## [设计模式](./DesignPatterns/DesignPatterns_CN.md)
 
-## Android
+## [现代 Android 开发](./Android/ModernAndroid_CN.md)
 
-### [现代 Android 开发](./Android/ModernAndroid_CN.md)
+### [现代架构](./Android/Architecture/Architecture_CN.md)
+
+### [模块化](./Android/Modularization/Modularization_CN.md)
