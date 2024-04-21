@@ -24,7 +24,7 @@
 
 #### [访问者模式](./Behavioral/Visitor_CN.md)
 
-### 结构模式
+### 创建模式
 
 #### [抽象工厂模式](./Creational/AbstractFactory_CN.md)
 
@@ -36,7 +36,7 @@
 
 #### [单例模式](./Creational/Singleton_CN.md)
 
-### 创建模式
+### 结构模式
 
 #### [适配器模式](./Structural/Adapter_CN.md)
 
