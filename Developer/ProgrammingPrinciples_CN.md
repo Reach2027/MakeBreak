@@ -1,39 +1,66 @@
-# 软件开发者应知的原则
+# 软件开发者应知的编程原则
 
-原文： https://java-design-patterns.com/principles/
+## 参考链接
+
+<https://java-design-patterns.com/principles/>
+
+<https://github.com/webpro/programming-principles>
 
 ## 编程原则
 
-### KISS (Keep it Simple Stupid) 保持简单
+### KISS
 
-### YAGNI (You aren't gonna need it) 仅在需要的时候去实现
+Keep it Simple Stupid
+保持简单
 
-### Do The Simplest Thing That Could Possibly Work 做最简单却可能有效的事
+追求简单，保持简单，越简单越不容易出错
 
-### DRY (Don't Repeat Yourself) 不要做重复的事情
+### YAGNI
 
-### Code For The Maintainer 维护者友好代码
+You aren't gonna need it, don't implement something until it is necessary.
+仅在需要的时候去实现
 
-### Avoid Premature Optimization 避免过早优化
+### DRY
+
+Don't Repeat Yourself
+不要做重复的事情
+
+### Do The Simplest Thing That Could Possibly Work
+
+关注并解决根源问题
+
+### Code For The Maintainer
+
+维护者友好代码
+
+### Separation of Concerns
+
+关注点分离
+
+### Avoid Premature Optimization
+
+避免过早优化
 
 Make it wotk -> Make it right -> Make it fast
 使其工作 -> 使其正确 —> 使其更快
 
-### Minimise Coupling 低耦合
+### Boy-Scout Rule
 
-### Maximise Cohesion 高内聚
+童子军规则
 
-### Orthogonality 正交性
+保证每次提交的质量，避免形成技术债。
 
-在概念上不相关的事情就不应该在系统中相关。
+### Minimise Coupling
 
-## 编码原则
+低耦合
 
-### Separation of Concerns 关注点分离
+### Maximise Cohesion
 
-界面、数据分离。
+高内聚
 
 ### Law of Demeter
+
+迪米特法则
 
 ```kt
 // bad
@@ -46,59 +73,81 @@ val b = a.b
 b.test()
 ```
 
-### Composition Over Inheritance 组合优于继承
+### Composition Over Inheritance
 
-### Robustness Principle 稳健性原则
+组合优于继承
 
-be conservative in what you do, be liberal in what you accept from others.
+### Orthogonality
+
+正交性
+
+在概念上不相关的事情就不应该在系统中相关。
+
+### Robustness Principle
+
+稳健性原则
+
+Be conservative in what you do, be liberal in what you accept from others.
 
 对自己做的事情严格，对从别人那接收的事情宽容.
 
 输出严格，输入宽容。
 
-### Inversion of Control 控制反转
+### Inversion of Control
+
+控制反转
 
 使用依赖注入。
 
-### Liskov Substitution Principle(LSP) 置换原则
+### Liskov Substitution Principle(LSP)
+
+置换原则
 
 程序中的对象可以使用其子类来替换并且不改变程序的正确性。
 
-### Open/Closed Principle 开闭原则
+### Open/Closed Principle
+
+开闭原则
 
 对扩展开放，对修改关闭。
 
-### Single Responsibility Principle 单一职责原则
+### Single Responsibility Principle
+
+单一职责原则
 
 模块、类、方法都应该遵循。
 
-### Curly's Law : Do One Thing 只做一件事
+### Hide Implementation Details
 
-模块、类、方法都应该遵循。
+隐藏实现细节
 
-### Hide Implementation Details 隐藏实现细节
+### Encapsulate What Changes
 
-当接口实现发生变化时，接口调用不需要变化。
-
-### Encapsulate What Changes 封装变化
+封装变化
 
 识别有可能发生变化的地方，使用接口将其封装。
 
-### Interface Segregation Principle 接口隔离原则
+### Interface Segregation Principle
+
+接口隔离原则
 
 避免胖接口，遵循单一职责原则。
 
-### Command Query Separation 命令查询分离
+### Command Query Separation
+
+命令查询分离
 
 查询方法不会改变状态，需要保持其可以在任何地方以任何顺序使用；命令方法会改变状态，调用时需谨慎。
 
-## 项目管理原则
+### Dependency Inversion Principle
 
-### Boy-Scout Rule 童子军规则
+依赖反转原则
 
-保证每次提交的质量，避免形成技术债。
+依赖抽象而不是具体实现。
 
-### Murphy's Law 墨菲定律
+### Murphy's Law
+
+墨菲定律
 
 Anything that can go wrong will go wrong.
 任何可能出错的事情都会出错。
