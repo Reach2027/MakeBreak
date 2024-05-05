@@ -11,18 +11,19 @@
 ### KISS
 
 Keep it Simple Stupid
-保持简单
 
 追求简单，保持简单，越简单越不容易出错
 
 ### YAGNI
 
 You aren't gonna need it, don't implement something until it is necessary.
+
 仅在需要的时候去实现
 
 ### DRY
 
 Don't Repeat Yourself
+
 不要做重复的事情
 
 ### Do The Simplest Thing That Could Possibly Work
@@ -42,6 +43,7 @@ Don't Repeat Yourself
 避免过早优化
 
 Make it wotk -> Make it right -> Make it fast
+
 使其工作 -> 使其正确 —> 使其更快
 
 ### Boy-Scout Rule
@@ -89,9 +91,7 @@ b.test()
 
 Be conservative in what you do, be liberal in what you accept from others.
 
-对自己做的事情严格，对从别人那接收的事情宽容.
-
-输出严格，输入宽容。
+对自己做的事情严格，对从别人那接收的事情宽容（输出严格，输入宽容）。
 
 ### Inversion of Control
 
@@ -150,6 +150,7 @@ Be conservative in what you do, be liberal in what you accept from others.
 墨菲定律
 
 Anything that can go wrong will go wrong.
+
 任何可能出错的事情都会出错。
 
 软件开发者需要做的是 **多思考、多测试**。
