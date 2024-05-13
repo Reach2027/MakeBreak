@@ -79,4 +79,5 @@ base
 ```
 
 最终方案
+
 <img src="/Android/Modularization/assets/modularization.drawio.png" alt="Modularization" width="777">
