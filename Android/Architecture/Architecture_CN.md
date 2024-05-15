@@ -10,6 +10,10 @@
 
 界面、数据分层
 
+### 依赖注入
+
+使用依赖注入处理类之间的依赖关系
+
 ### 数据模型驱动用户界面
 
 从数据模型（最好是持久化数据模型）驱动用户界面
@@ -20,7 +24,7 @@
 
 ### 单一事实源（Single source of truth - SSOT）
 
-数据所有者通过不可变类型暴露数据（如 StateFlow）,修改、更改数据逻辑必须在数据所有者内。
+数据持有者通过不可变类型暴露数据（如 StateFlow），暴露更改数据的方法，外部调用数据持有者内的更改数据方法去更改数据。
 
 ### 单向数据流（Unidirectional data flow - UDF）
 
@@ -31,24 +35,18 @@
     alt="UDF"
     width="666">
 
-### 依赖注入
-
-使用依赖注入处理类之间的依赖关系
-
 ## 架构概览
 
-现代应用架构最少有两层，界面层及数据层。
+现代应用架构最少有两层:
+
+* [界面层（UI layer）](/Android/Architecture/UILayer_CN.md)：负责展示数据
+* [域层（Domain layer）](/Android/Architecture/DomainLayer_CN.md)：负责封装复杂的业务逻辑或多个 ViewModel 重复使用的简单业务逻辑，域层是可选的，有需求时再去实现。
+* [数据层（Data layer）](/Android/Architecture/DataLayer_CN.md)：负责应用的业务逻辑
 
 <img 
     src="/Android/Architecture/assets/mad-arch-overview.png"
     alt="Architecture Overview"
     width="666">
-
-### [界面层（UI layer）](/Android/Architecture/UILayer_CN.md)
-
-### [域层（Domain layer）](/Android/Architecture/DomainLayer_CN.md)
-
-### [数据层（Data layer）](/Android/Architecture/DataLayer_CN.md)
 
 ## 架构最佳实践
 
