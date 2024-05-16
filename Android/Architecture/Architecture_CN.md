@@ -39,7 +39,7 @@
 
 现代应用架构最少有两层:
 
-* [界面层（UI layer）](/Android/Architecture/UILayer_CN.md)：负责展示数据
+* [界面层（UI layer）](/Android/Architecture/UILayer_CN.md)：包含界面相关状态及界面逻辑
 * [域层（Domain layer）](/Android/Architecture/DomainLayer_CN.md)：负责封装复杂的业务逻辑或多个 ViewModel 重复使用的简单业务逻辑，域层是可选的，有需求时再去实现。
 * [数据层（Data layer）](/Android/Architecture/DataLayer_CN.md)：包含应用数据及业务逻辑
 
