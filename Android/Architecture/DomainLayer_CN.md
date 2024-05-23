@@ -1,6 +1,6 @@
 # 域层（Domain Layer）
 
-域层是可选层，主要职责是承接界面层和数据层之间的部分业务逻辑，由用例类（UseCase）组成。
+域层是可选层，主要职责是承接界面层和数据层之间的部分业务逻辑，域层仅包含用例类（UseCase）。
 
 <img 
     src="/Android/Architecture/assets/mad-arch-overview-domain.png"
