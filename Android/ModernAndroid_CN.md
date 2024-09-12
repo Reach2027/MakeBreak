@@ -40,7 +40,7 @@
 
 ##### [现代 Android 架构](/Android/Architecture/Architecture_CN.md)
 
-##### [模块化](/Android/Modularization/Modularization_CN.md)
+##### [模块化](/Client/Modularization/Modularization_CN.md)
 
 #### 测试
 

@@ -38,50 +38,28 @@
 
 ## 模块化方案
 
+### 特别简单的项目，无需模块化仅一个 app 模块即可
+
+### 较多功能项目
+
 按照功能来划分模块
 
-```kt
-app
-⬇️
-feature
-```
+<img src="/CLient/Modularization/assets/modularization-feature.drawio.png" alt="Modularization" width="777">
 
-分层架构，数据层复用
+### 数据层存在复用的多功能项目
 
-```kt
-app
-⬇️
-feature
-⬇️
-feature-data
-```
+关注点分离，分层架构，数据层复用
+
+<img src="/CLient/Modularization/assets/modularization-feature-data.drawio.png" alt="Modularization" width="777">
+
+### 复杂多功能项目
 
 业务通用逻辑下沉
 
-```kt
-app
-⬇️
-feature
-⬇️
-feature-data
-⬇️
-core
-```
+<img src="/CLient/Modularization/assets/modularization-feature-core.drawio.png" alt="Modularization" width="777">
+
+### 跨项目模块化
 
 业务无关通用逻辑再下沉
 
-```kt
-app
-⬇️
-feature
-⬇️
-feature-data
-⬇️
-core
-⬇️
-base
-```
-
-最终方案
-
-<img src="/Android/Modularization/assets/modularization.drawio.png" alt="Modularization" width="777">
+<img src="/CLient/Modularization/assets/modularization-feature-base.drawio.png" alt="Modularization" width="777">
