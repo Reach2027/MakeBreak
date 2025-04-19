@@ -39,25 +39,25 @@
 
 按照功能来划分模块
 
-<img src="/CLient/Modularization/assets/modularization-feature.drawio.png" alt="Modularization" width="777">
+<img src="/cLient/modularization/assets/modularization_feature.png" alt="Modularization" width="777">
 
 ### 数据层存在复用的多功能项目
 
 关注点分离，分层架构，数据层复用
 
-<img src="/CLient/Modularization/assets/modularization-feature-data.drawio.png" alt="Modularization" width="777">
+<img src="/cLient/modularization/assets/modularization_feature_data.png" alt="Modularization" width="777">
 
 ### 复杂多功能项目
 
 业务通用逻辑下沉
 
-<img src="/CLient/Modularization/assets/modularization-feature-core.drawio.png" alt="Modularization" width="777">
+<img src="/cLient/modularization/assets/modularization_feature_core.png" alt="Modularization" width="777">
 
 ### 跨项目模块化
 
 业务无关通用逻辑再下沉
 
-<img src="/CLient/Modularization/assets/modularization-feature-base.drawio.png" alt="Modularization" width="777">
+<img src="/cLient/modularization/assets/modularization_feature_base.png" alt="Modularization" width="777">
 
 ## 参考链接
 
