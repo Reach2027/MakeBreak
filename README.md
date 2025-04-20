@@ -2,7 +2,7 @@
 
 ## [编码原则](./developer/programming_principles.md.md)
 
-## [设计模式](./developer/design_patterns/design_patterns.md)
+## [设计模式](./design_patterns/design_patterns.md)
 
 ## [现代 Android 开发](./client/android/modern_android.md)
 
