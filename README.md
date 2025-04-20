@@ -4,8 +4,6 @@
 
 ## [设计模式](./design_patterns/design_patterns.md)
 
-## [现代 Android 开发](./client/android/modern_android.md)
+## [App架构](./architecture/architecture.md)
 
-### [现代架构](./client/architecture/architecture.md)
-
-### [模块化](./client/modularization/modularization.md)
+## [模块化](./architecture/modularization.md)
