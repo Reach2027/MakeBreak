@@ -255,24 +255,24 @@ ___
 
 ***预览***
 
-![示例图片](assets/md_pic_sample.jpg "图片示例")
+![示例图片](res/md_pic_sample.jpg "图片示例")
 
 ***Markdown***
 
 ```md
-![示例图片](assets/md_pic_sample.jpg "图片示例")
+![示例图片](res/md_pic_sample.jpg "图片示例")
 ```
 
 ***Markdown语法不支持指定图像宽高，要设置图片大小使用HTML语法***
 
 ***预览***
 
-<img src="assets/md_pic_sample.jpg" alt="示例图片" title="图片示例" width="600" height="600">
+<img src="res/md_pic_sample.jpg" alt="示例图片" title="图片示例" width="600" height="600">
 
 ***Markdown***
 
 ```md
-<img src="assets/md_pic_sample.jpg" alt="示例图片" title="图片示例" width="600" height="600">
+<img src="res/md_pic_sample.jpg" alt="示例图片" title="图片示例" width="600" height="600">
 ```
 
 ***Markdown***
