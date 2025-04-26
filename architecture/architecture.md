@@ -17,6 +17,10 @@ UI 与数据分离
 
 界面层负责界面显示及界面逻辑，数据层负责应用数据及业务逻辑
 
+### KISS (Keep it Simple Stupid)
+
+追求简单，保持简单
+
 ### 数据模型驱动用户界面
 
 UI 行为由数据模型驱动，设计好数据模型
@@ -37,13 +41,13 @@ UI 行为由数据模型驱动，设计好数据模型
 
 使用依赖注入处理类之间的依赖关系，可以选择自动依赖注入框架
 
-## 推荐架构
+## 推荐架构 MVVM
 
 * 界面层（UI Layer）：界面层负责显示应用数据及接收用户操作，一般由用户界面(UI)、用户界面状态（UiState）和状态持有者（StateHolder）组成
 * 数据层（Data Layer）：数据层负责提供数据及处理来自界面层的请求，一般由数据模型（Model）、数据仓库（Repository）和数据源（DataSource）组成
 * 域层（Domain Layer）：域层是可选层，职责是承接界面层和数据层之间的部分逻辑，域层仅包含用例类（UseCase）
 
-<img 
+<img
     src="/architecture/res/arch_overview.png"
     alt="Architecture Overview"
     width="666">
@@ -103,7 +107,7 @@ UI 行为由数据模型驱动，设计好数据模型
 
 * 使用生命周期方法收集界面状态数据流
 * 业务逻辑必须抛给状态持有者处理
-* 设计修改界面状态的逻辑必须抛给状态持有者处理
+* 涉及修改界面状态的逻辑必须抛给状态持有者处理
 * 不涉及界面状态的界面逻辑内部处理
 
 #### 状态持有者 StateHolder
@@ -150,6 +154,22 @@ UI 行为由数据模型驱动，设计好数据模型
 * 一个界面对应一个还是多个界面状态类，可从以下两方面考虑：
   * 状态是否相关
   * 更新频率差异大不大
+* 根据状态是否能同时出现来设计界面状态类
+  * 如数据加载中、加载失败、加载完成，使用 Kotlin 密封类（scaled class）根据状态是否会同时存在来设计
+  
+  ```kt
+  sealed interface SampleUiState {
+
+    object Loading : SampleUiState
+
+    object Error : SampleUiState
+
+    data class Success(
+        val text: String = "",
+    ) : SampleUiState
+  }
+  ```
+  
 
 ## 数据层（Data Layer）
 
