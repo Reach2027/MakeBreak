@@ -154,7 +154,7 @@ UI 行为由数据模型驱动，设计好数据模型
 * 一个界面对应一个还是多个界面状态类，可从以下两方面考虑：
   * 状态是否相关
   * 更新频率差异大不大
-* 根据状态是否能同时出现来设计界面状态类
+* 根据状态是否能同时出现来设计界面状态类，多多使用 Kotlin 密封类（scaled class）
   * 如数据加载中、加载失败、加载完成，使用 Kotlin 密封类（scaled class）根据状态是否会同时存在来设计
   
   ```kt
@@ -169,7 +169,6 @@ UI 行为由数据模型驱动，设计好数据模型
     ) : SampleUiState
   }
   ```
-  
 
 ## 数据层（Data Layer）
 
@@ -222,14 +221,14 @@ UI 行为由数据模型驱动，设计好数据模型
 * 职责单一原则
   * 为每个数据类型实现对应数据仓库
   * 需要聚合多个数据仓库时，专门建立一个聚合多个数据仓库的类
+  * <img 
+    src="/architecture/res/arch_data_multiple_repos.png"
+    alt="Architecture Data"
+    width="666">
 * 为每个数据仓库类定义接口（抽象），数据仓库实现类不对外暴露
 * 一个数据仓库可包含零个或多个数据源
   * 当一个数据仓库仅依赖一个数据源时，可以在数据仓库内直接实现数据源
   * 依赖多个数据源时，数据仓库内则不应存在数据源的实现
-    <img 
-    src="/architecture/res/arch_data_multiple_repos.png"
-    alt="Architecture Data"
-    width="666">
 * 对外暴露的方法必须是主线程安全的
 
 #### 数据源 DataSource
@@ -298,3 +297,7 @@ UI 行为由数据模型驱动，设计好数据模型
 * 职责单一原则，每个用例类应只负责一个功能
 * 不能持有可变数据流
 * 方法必须是主线程安全的
+
+## 参考链接
+
+<https://developer.android.google.cn/topic/architecture>
